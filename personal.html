@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nyoh Leonard Kanyi | Machine/AI & Software Engineer</title>
+  <meta name="description" content="Computer Engineering student at NAHPI Bamenda. Founder of AI & Data Science Lab. Specialized in Robotics, ML, and scalable software solutions." />
+  <meta name="keywords" content="Nyoh Leonard Kanyi, NAHPI, University of Bamenda, AI & Data Science Lab, Cameroon Software Engineer, Machine Learning, Full-Stack Developer" />
+  <meta name="author" content="Nyoh Leonard Kanyi" />
+  <meta property="og:title" content="Nyoh Leonard Kanyi | Machine/AI & Software Engineer" />
+  <meta property="og:description" content="Building intelligent systems at the intersection of AI, robotics and full-stack engineering." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nyohleonard-nlktech.github.io" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #050505;
+      --aura-cyan: rgba(8, 51, 68, 0.22);
+      --aura-blue: rgba(30, 58, 138, 0.2);
+      --accent: #22d3ee;
+      --accent-dim: rgba(34, 211, 238, 0.15);
+      --accent-border: rgba(34, 211, 238, 0.4);
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --border: rgba(255,255,255,0.05);
+      --glass: rgba(255,255,255,0.02);
+      --glass-hover: rgba(255,255,255,0.045);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'IBM Plex Mono', monospace;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── CUSTOM CURSOR ── */
+    #cursor {
+      position: fixed; width: 8px; height: 8px;
+      background: var(--accent); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: transform 0.1s ease;
+    }
+    #cursor-ring {
+      position: fixed; width: 32px; height: 32px;
+      border: 1px solid var(--accent-border); border-radius: 50%;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: all 0.15s ease;
+    }
+
+    /* ── AURA BACKGROUND ── */
+    .aura-container {
+      position: fixed; inset: 0; z-index: -1; overflow: hidden;
+    }
+    .aura-1 {
+      position: absolute; top: -20%; left: -20%; width: 70%; height: 70%;
+      background: radial-gradient(circle, var(--aura-cyan) 0%, transparent 70%);
+      filter: blur(120px);
+      animation: drift1 22s infinite alternate ease-in-out;
+    }
+    .aura-2 {
+      position: absolute; bottom: -20%; right: -20%; width: 60%; height: 60%;
+      background: radial-gradient(circle, var(--aura-blue) 0%, transparent 70%);
+      filter: blur(120px);
+      animation: drift2 28s infinite alternate-reverse ease-in-out;
+    }
+    .aura-3 {
+      position: absolute; top: 40%; left: 30%; width: 40%; height: 40%;
+      background: radial-gradient(circle, rgba(34,211,238,0.04) 0%, transparent 70%);
+      filter: blur(80px);
+      animation: drift1 18s infinite alternate ease-in-out;
+    }
+    @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(12%,8%) scale(1.1); } }
+    @keyframes drift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(-10%,-12%) scale(1.08); } }
+
+    /* GRID OVERLAY */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: -1;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(5,5,5,0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      animation: slideDown 0.8s ease forwards;
+    }
+    @keyframes slideDown { from { transform: translateY(-100%); opacity:0; } to { transform: translateY(0); opacity:1; } }
+    .nav-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700; font-size: 1rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.75rem; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--accent);
+      transform: scaleX(0); transition: transform 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: flex-start;
+      padding: 0 4rem;
+      position: relative;
+    }
+    .hero-tag {
+      font-size: 0.7rem; letter-spacing: 0.3em;
+      color: var(--accent); text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
+    }
+    .hero-tag::before { content: '[ '; } .hero-tag::after { content: ' ]'; }
+    .hero-name {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
+    }
+    .hero-name .accent { color: var(--accent); }
+    .hero-tagline {
+      font-size: clamp(0.8rem, 1.5vw, 1rem);
+      color: var(--muted); letter-spacing: 0.12em;
+      margin-bottom: 3rem;
+      opacity: 0; animation: fadeUp 0.9s 0.7s forwards;
+    }
+    #typed-text { color: var(--accent); }
+    .cursor-blink { animation: blink 1s step-end infinite; color: var(--accent); }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .hero-cta {
+      display: flex; gap: 1rem;
+      opacity: 0; animation: fadeUp 0.9s 0.9s forwards;
+    }
+    .btn {
+      padding: 0.75rem 2rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem; letter-spacing: 0.15em;
+      text-transform: uppercase; text-decoration: none;
+      border-radius: 2px; transition: all 0.3s ease;
+      cursor: none;
+    }
+    .btn-primary {
+      background: var(--accent); color: #050505;
+      border: 1px solid var(--accent); font-weight: 600;
+    }
+    .btn-primary:hover { background: transparent; color: var(--accent); }
+    .btn-outline {
+      background: transparent; color: var(--accent);
+      border: 1px solid var(--accent-border);
+    }
+    .btn-outline:hover { border-color: var(--accent); background: var(--accent-dim); }
+
+    .hero-stats {
+      position: absolute; right: 4rem; bottom: 4rem;
+      display: flex; flex-direction: column; gap: 1.5rem;
+      opacity: 0; animation: fadeUp 1s 1.1s forwards;
+    }
+    .stat { text-align: right; }
+    .stat-num {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem; font-weight: 700; color: var(--accent);
+    }
+    .stat-label { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
+
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 4rem;
+      display: flex; align-items: center; gap: 0.75rem;
+      font-size: 0.65rem; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase;
+      opacity: 0; animation: fadeUp 1s 1.4s forwards;
+    }
+    .scroll-line {
+      width: 40px; height: 1px; background: var(--accent);
+      animation: expandLine 2s 1.6s ease forwards;
+      transform-origin: left; transform: scaleX(0);
+    }
+    @keyframes expandLine { to { transform: scaleX(1); } }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 4rem; }
+    .section-label {
+      font-size: 0.65rem; letter-spacing: 0.35em;
+      color: var(--accent); text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section-label::before { content: '// '; }
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700; margin-bottom: 3rem;
+      line-height: 1.15;
+    }
+
+    /* ── ABOUT ── */
+    #about .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+    }
+    .about-text p {
+      color: var(--muted); line-height: 1.9;
+      font-size: 0.9rem; margin-bottom: 1.2rem;
+      font-family: 'IBM Plex Sans', sans-serif;
+    }
+    .about-text p .hl { color: var(--text); }
+    .about-text p .accent-hl { color: var(--accent); }
+
+    .gce-badge {
+      background: var(--glass);
+      border: 1px solid var(--accent-border);
+      border-radius: 4px; padding: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .gce-badge-title {
+      font-size: 0.65rem; letter-spacing: 0.2em;
+      color: var(--accent); text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .gce-scores {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;
+    }
+    .gce-subject {
+      text-align: center; padding: 0.75rem 0.5rem;
+      background: rgba(34,211,238,0.05);
+      border: 1px solid rgba(34,211,238,0.1); border-radius: 3px;
+    }
+    .gce-grade {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.4rem; color: var(--accent); font-weight: 700;
+    }
+    .gce-subj-name { font-size: 0.6rem; color: var(--muted); margin-top: 0.25rem; letter-spacing: 0.05em; }
+
+    .total-score {
+      margin-top: 1rem; padding: 0.75rem 1rem;
+      background: rgba(34,211,238,0.08);
+      border-left: 3px solid var(--accent);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .total-score-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; }
+    .total-score-val {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--accent); font-weight: 700;
+    }
+
+    .avatar-box {
+      position: relative;
+      display: flex; justify-content: center;
+    }
+    .avatar-ring {
+      width: 280px; height: 280px; border-radius: 50%;
+      border: 2px solid var(--accent-border);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; animation: rotateSlow 20s linear infinite;
+    }
+    @keyframes rotateSlow { to { transform: rotate(360deg); } }
+    .avatar-inner {
+      width: 240px; height: 240px; border-radius: 50%;
+      background: linear-gradient(135deg, #083344 0%, #1e3a8a 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4rem; font-weight: 900; color: var(--accent);
+      animation: rotateSlow 20s linear infinite reverse;
+      position: relative; overflow: hidden;
+    }
+    .avatar-inner img {
+      width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+      display: block;
+    }
+    .avatar-orbit {
+      position: absolute; width: 320px; height: 320px;
+      border-radius: 50%; border: 1px dashed rgba(34,211,238,0.15);
+    }
+    .orbit-dot {
+      position: absolute; width: 8px; height: 8px;
+      background: var(--accent); border-radius: 50%;
+      top: -4px; left: 50%; transform: translateX(-50%);
+      box-shadow: 0 0 12px var(--accent);
+    }
+
+    /* ── SKILLS ── */
+    #skills .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    .skill-card:hover {
+      border-color: var(--accent-border);
+      background: var(--glass-hover);
+      transform: translateY(-4px);
+    }
+    .skill-card-icon {
+      font-size: 1.5rem; margin-bottom: 1rem;
+    }
+    .skill-card-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.8rem; color: var(--accent);
+      letter-spacing: 0.1em; margin-bottom: 1rem;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .skill-tag {
+      padding: 0.25rem 0.6rem;
+      background: rgba(34,211,238,0.06);
+      border: 1px solid rgba(34,211,238,0.12);
+      border-radius: 2px;
+      font-size: 0.65rem; color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── PROJECTS ── */
+    #projects .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 2rem;
+      position: relative; overflow: hidden;
+      transition: all 0.35s ease;
+      display: flex; flex-direction: column;
+    }
+    .project-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      transform: scaleX(0); transition: transform 0.4s ease;
+    }
+    .project-card:hover {
+      border-color: var(--accent-border);
+      background: var(--glass-hover);
+      transform: translateY(-6px);
+    }
+    .project-card:hover::before { transform: scaleX(1); }
+    .project-num {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.65rem; color: rgba(34,211,238,0.3);
+      letter-spacing: 0.2em; margin-bottom: 1rem;
+    }
+    .project-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem; color: var(--text);
+      margin-bottom: 0.75rem; line-height: 1.3;
+    }
+    .project-desc {
+      font-size: 0.8rem; color: var(--muted);
+      line-height: 1.8; margin-bottom: 1.5rem; flex: 1;
+      font-family: 'IBM Plex Sans', sans-serif;
+    }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+    .tech-tag {
+      padding: 0.2rem 0.5rem;
+      border: 1px solid rgba(34,211,238,0.2);
+      border-radius: 2px; font-size: 0.6rem;
+      color: var(--accent); letter-spacing: 0.1em;
+    }
+    .project-links { display: flex; gap: 1rem; }
+    .project-link {
+      font-size: 0.65rem; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s ease;
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .project-link:hover { color: var(--accent); }
+    .project-link svg { width: 12px; height: 12px; }
+
+    /* FEATURED */
+    .project-card.featured {
+      grid-column: span 2;
+      flex-direction: row; gap: 2rem;
+    }
+    .project-card.featured .project-content { flex: 1; }
+    .project-card.featured .project-visual {
+      width: 200px; display: flex; align-items: center; justify-content: center;
+      background: rgba(34,211,238,0.04); border-radius: 4px;
+      flex-shrink: 0; font-size: 4rem;
+    }
+
+    /* ── EDUCATION/TIMELINE ── */
+    #education .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ''; position: absolute;
+      left: 0; top: 0; bottom: 0; width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .timeline-item { position: relative; margin-bottom: 3rem; }
+    .timeline-dot {
+      position: absolute; left: -2.35rem; top: 0.3rem;
+      width: 10px; height: 10px; border-radius: 50%;
+      border: 2px solid var(--accent); background: var(--bg);
+    }
+    .timeline-date { font-size: 0.65rem; color: var(--accent); letter-spacing: 0.15em; margin-bottom: 0.5rem; }
+    .timeline-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.95rem; margin-bottom: 0.5rem;
+    }
+    .timeline-sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
+    .timeline-desc {
+      font-size: 0.8rem; color: var(--muted);
+      line-height: 1.8; font-family: 'IBM Plex Sans', sans-serif;
+    }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; }
+    #contact .contact-inner { max-width: 600px; margin: 0 auto; }
+    .contact-email {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1rem, 3vw, 1.6rem);
+      color: var(--accent); text-decoration: none;
+      border-bottom: 1px solid var(--accent-border);
+      padding-bottom: 0.3rem;
+      transition: border-color 0.3s ease;
+      display: inline-block; margin-bottom: 3rem;
+    }
+    .contact-email:hover { border-color: var(--accent); }
+    .socials { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+    .social-link {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border: 1px solid var(--border); border-radius: 2px;
+      color: var(--muted); text-decoration: none;
+      font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+    .social-link:hover {
+      border-color: var(--accent-border); color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em;
+    }
+    footer .footer-logo {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--accent); font-size: 0.75rem;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1rem; }
+      section { padding: 4rem 1.5rem; }
+      #hero { padding: 0 1.5rem; }
+      #about .about-grid { grid-template-columns: 1fr; }
+      .avatar-box { margin-bottom: 2rem; order: -1; }
+      .project-card.featured { grid-column: span 1; flex-direction: column; }
+      .project-card.featured .project-visual { width: 100%; height: 120px; }
+      .hero-stats { position: static; margin-top: 3rem; flex-direction: row; gap: 2rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .gce-scores { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- AURA -->
+  <div class="aura-container">
+    <div class="aura-1"></div>
+    <div class="aura-2"></div>
+    <div class="aura-3"></div>
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">NLK<span>.</span>TECH</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-tag">Available for opportunities</div>
+    <h1 class="hero-name">
+      NYOH<br />
+      <span class="accent">LEONARD</span><br />
+      KANYI
+    </h1>
+    <p class="hero-tagline">
+      &gt; <span id="typed-text"></span><span class="cursor-blink">_</span>
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Projects Shipped</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">24</div>
+        <div class="stat-label">GCE A-Level Points</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Problems to Solve</div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll to explore
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-label">About</div>
+    <h2 class="section-title reveal">The Engineer<br />Behind the Code</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          I am <span class="hl">Nyoh Leonard Kanyi</span> — a Computer Engineering student at
+          <span class="accent-hl">NAHPI Bamenda (University of Bamenda)</span>, Cameroon,
+          building intelligent systems at the intersection of AI, machine learning, robotics,
+          and full-stack software engineering.
+        </p>
+        <p>
+          Currently founding and leading the <span class="accent-hl">AI &amp; Data Science Lab</span>
+          — a space for pushing the boundaries of applied intelligence in the African tech ecosystem.
+          As a <span class="hl">Millennium Fellow</span>, I carry a mission: to engineer solutions
+          that are not just technically excellent, but socially impactful.
+        </p>
+        <p>
+          My foundation is built on first principles. I do not just ship code — I understand
+          <span class="hl">why</span> systems work at their mathematical and computational core.
+          From neural network architectures to database schemas, from signal processing to
+          REST API design — I operate across the full depth of the stack.
+        </p>
+        <p>
+          I am still early in the journey, but the trajectory is clear. <span class="accent-hl">Elite engineer in the making.</span>
+        </p>
+
+        <div class="gce-badge reveal">
+          <div class="gce-badge-title">// GCE Advanced Level — Academic Excellence</div>
+          <div class="gce-scores">
+            <div class="gce-subject">
+              <div class="gce-grade">A</div>
+              <div class="gce-subj-name">Further Math</div>
+            </div>
+            <div class="gce-subject">
+              <div class="gce-grade">A</div>
+              <div class="gce-subj-name">Physics</div>
+            </div>
+            <div class="gce-subject">
+              <div class="gce-grade">A</div>
+              <div class="gce-subj-name">Chemistry</div>
+            </div>
+            <div class="gce-subject">
+              <div class="gce-grade">A</div>
+              <div class="gce-subj-name">Mathematics</div>
+            </div>
+          </div>
+          <div class="total-score">
+            <span class="total-score-label">AGGREGATE SCORE</span>
+            <span class="total-score-val">24 / 24 — DISTINCTION</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="avatar-box reveal">
+        <div class="avatar-orbit">
+          <div class="orbit-dot"></div>
+        </div>
+        <div class="avatar-ring">
+          <div class="avatar-inner">NLK</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">Skills</div>
+    <h2 class="section-title reveal">Technical Arsenal</h2>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">🤖</div>
+        <div class="skill-card-title">Machine Learning & AI</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">Scikit-learn</span>
+          <span class="skill-tag">NumPy</span>
+          <span class="skill-tag">Pandas</span>
+          <span class="skill-tag">Neural Networks</span>
+          <span class="skill-tag">Computer Vision</span>
+          <span class="skill-tag">NLP</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">🌐</div>
+        <div class="skill-card-title">Full-Stack Development</div>
+        <div class="skill-tags">
+          <span class="skill-tag">HTML5</span>
+          <span class="skill-tag">CSS3</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Flask</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Git</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">⚙️</div>
+        <div class="skill-card-title">Engineering Foundations</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Linear Algebra</span>
+          <span class="skill-tag">Calculus</span>
+          <span class="skill-tag">Probability</span>
+          <span class="skill-tag">Algorithms</span>
+          <span class="skill-tag">Data Structures</span>
+          <span class="skill-tag">Signal Processing</span>
+          <span class="skill-tag">Physics</span>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-icon">🚀</div>
+        <div class="skill-card-title">Deployment & Tools</div>
+        <div class="skill-tags">
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">Render</span>
+          <span class="skill-tag">Vercel</span>
+          <span class="skill-tag">GitHub Pages</span>
+          <span class="skill-tag">Linux</span>
+          <span class="skill-tag">VS Code</span>
+          <span class="skill-tag">Jupyter</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-label">Projects</div>
+    <h2 class="section-title reveal">Things I've Built</h2>
+    <div class="projects-grid">
+
+      <div class="project-card featured reveal">
+        <div class="project-visual">📥</div>
+        <div class="project-content">
+          <div class="project-num">01 — FEATURED</div>
+          <h3 class="project-title">GCE Downloader Platform</h3>
+          <p class="project-desc">
+            A web platform that gives Cameroonian students direct access to GCE past questions
+            and educational resources. Solves a real accessibility problem in the Cameroonian
+            educational ecosystem — two live deployments, zero cost to users.
+          </p>
+          <div class="project-tech">
+            <span class="tech-tag">HTML</span>
+            <span class="tech-tag">CSS</span>
+            <span class="tech-tag">JavaScript</span>
+            <span class="tech-tag">Render</span>
+          </div>
+          <div class="project-links">
+            <a href="https://gcedowloader.onrender.com/" target="_blank" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Live v1
+            </a>
+            <a href="https://nlk-gcedowloader.onrender.com/" target="_blank" class="project-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Live v2
+            </a>
+            <a href="https://github.com/nyohleonard-nlktech/GCEdowloader" target="_blank" class="project-link">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">02</div>
+        <h3 class="project-title">Football DB Academy</h3>
+        <p class="project-desc">
+          An interactive football database and academy platform. Displays player stats,
+          team data, and educational football content — deployed on Vercel with a
+          clean HTML/CSS/JS architecture.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">HTML</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">CSS</span>
+          <span class="tech-tag">Vercel</span>
+        </div>
+        <div class="project-links">
+          <a href="https://football-db-academy.vercel.app/" target="_blank" class="project-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Live Demo
+          </a>
+          <a href="https://github.com/nyohleonard-nlktech/football-db-academy" target="_blank" class="project-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">03</div>
+        <h3 class="project-title">MAFA Chemistry Attendance System</h3>
+        <p class="project-desc">
+          A Python-based automated attendance tracking system built for MAFA Chemistry.
+          Digitizes the attendance workflow, reducing manual errors and improving
+          institutional record-keeping efficiency.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Data Management</span>
+          <span class="tech-tag">Automation</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/nyohleonard-nlktech/mafa-chemistry-attendance" target="_blank" class="project-link">
+            <svg viewBox="0 0 24 25" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">04</div>
+        <h3 class="project-title">AI Image Editor</h3>
+        <p class="project-desc">
+          An intelligent image editing tool powered by AI. Supports filters, transformations,
+          and AI-enhanced operations — bridging the gap between creative tooling and
+          machine learning-driven image processing pipelines.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">AI/ML</span>
+          <span class="tech-tag">Image Processing</span>
+          <span class="tech-tag">OpenCV</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/nyohleonard-nlktech" target="_blank" class="project-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            View on GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">05</div>
+        <h3 class="project-title">Shadow Mission</h3>
+        <p class="project-desc">
+          An exploratory engineering project pushing boundaries in system design
+          and software architecture. Details classified — check the repository for
+          the full technical breakdown.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Systems</span>
+          <span class="tech-tag">Engineering</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/nyohleonard-nlktech/shadow-mission" target="_blank" class="project-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-num">06</div>
+        <h3 class="project-title">Python Tasks & Algorithms</h3>
+        <p class="project-desc">
+          A collection of Python solutions, algorithmic challenges, and computational
+          exercises. Documents the depth of CS fundamentals study — data structures,
+          sorting, graph algorithms, and more.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Algorithms</span>
+          <span class="tech-tag">DSA</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/nyohleonard-nlktech/python-tasks" target="_blank" class="project-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="section-label">Education & Achievements</div>
+    <h2 class="section-title reveal">The Foundation</h2>
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2024 — PRESENT</div>
+        <h3 class="timeline-title">B.Eng. Computer Engineering</h3>
+        <div class="timeline-sub">NAHPI Bamenda — University of Bamenda, Cameroon</div>
+        <p class="timeline-desc">
+          Deep technical study covering software engineering, hardware design, embedded systems,
+          algorithms, AI fundamentals, and computer networks. Actively applying theory to
+          real-world projects and research.
+        </p>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2024</div>
+        <h3 class="timeline-title">Millennium Fellowship</h3>
+        <div class="timeline-sub">United Nations Academic Impact / Millennium Campus Network</div>
+        <p class="timeline-desc">
+          Selected as a Millennium Fellow — a global cohort of student leaders driving
+          the UN Sustainable Development Goals. Focus on leveraging technology for
+          social impact across Africa.
+        </p>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2023</div>
+        <h3 class="timeline-title">Founder — AI &amp; Data Science Lab</h3>
+        <div class="timeline-sub">NAHPI Bamenda</div>
+        <p class="timeline-desc">
+          Founded and lead the AI &amp; Data Science Lab at NAHPI — building a collaborative
+          environment for students to explore machine learning, data analysis,
+          and applied AI research. Bridging academia and industry relevance.
+        </p>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2023</div>
+        <h3 class="timeline-title">GCE Advanced Level — 24 Points (Distinction)</h3>
+        <div class="timeline-sub">Cameroon GCE Board</div>
+        <p class="timeline-desc">
+          Achieved Grade A in Further Mathematics, Physics, Chemistry, and Mathematics —
+          maximum aggregate of 24 points. A quantitative proof of deep scientific
+          and mathematical reasoning capability.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="section-label">Contact</div>
+      <h2 class="section-title reveal">Let's Build<br />Something</h2>
+      <p class="reveal" style="color:var(--muted); font-size:0.85rem; line-height:1.8; margin-bottom:2.5rem; font-family:'IBM Plex Sans',sans-serif;">
+        Whether it's a collaboration, an opportunity, a research project, or just a
+        technical discussion — I'm open. Send a message and let's talk engineering.
+      </p>
+      <a href="mailto:nyohleonard16@gmail.com" class="contact-email reveal">
+        nyohleonard16@gmail.com
+      </a>
+      <div class="socials reveal">
+        <a href="https://github.com/nyohleonard-nlktech" target="_blank" class="social-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/nyoh-leonard-8b232936b/" target="_blank" class="social-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="mailto:nyohleonard16@gmail.com" class="social-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Email
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">NLK.TECH</span>
+    <span>Designed &amp; Built by Nyoh Leonard Kanyi © 2026</span>
+    <span>NAHPI Bamenda · Cameroon</span>
+  </footer>
+
+  <script>
+    // CURSOR
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    function animCursor() {
+      cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    }
+    animCursor();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { ring.style.transform = 'translate(-50%,-50%) scale(1.6)'; ring.style.borderColor = 'var(--accent)'; });
+      el.addEventListener('mouseleave', () => { ring.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.borderColor = 'var(--accent-border)'; });
+    });
+
+    // TYPED EFFECT
+    const phrases = [
+      'Machine Learning Engineer',
+      'Software Engineer',
+      'AI Systems Builder',
+      'Full-Stack Developer',
+      'Robotics Enthusiast',
+    ];
+    let pi = 0, ci = 0, deleting = false;
+    const el = document.getElementById('typed-text');
+    function type() {
+      const word = phrases[pi];
+      if (!deleting) {
+        el.textContent = word.slice(0, ++ci);
+        if (ci === word.length) { deleting = true; setTimeout(type, 1800); return; }
+      } else {
+        el.textContent = word.slice(0, --ci);
+        if (ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; }
+      }
+      setTimeout(type, deleting ? 45 : 80);
+    }
+    type();
+
+    // SCROLL REVEAL
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // NAV ACTIVE STATE
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) current = s.id; });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+      });
+    });
+  </script>
+</body>
+</html>
